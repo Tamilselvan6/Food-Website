@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodie</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-half" id="leftImageContainer">
+      <img src="./assets/login-background.jpg" alt="Background Image" class="slide" data-index="1">
+      <img src="./assets/login-background 2.jpg" alt="Background Image" class="slide" data-index="2">
+      <img src="./assets/login-background 3.jpg" alt="Background Image" class="slide" data-index="3">
+      <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+    </div>
+    <div class="right-half">
+      <div class="login-background">
+        <img src="./assets/logo.png" alt="Logo">
+      </div>
+      <form action="menu_items.html" method="get" id="loginForm">
+        <h1>Sign In</h1>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <button class="form_button" type="submit">LOGIN</button>
+        <div class="forgot-password">
+          <a href="#">Forgot Password? <b>Click here </b></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+  let slideIndex = 0;
+  function showSlides() {
+    let i;
+    const slides = document.getElementsByClassName("slide");
+    const dots = document.getElementsByClassName("dot");
+
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      dots[i].classList.remove("active");
+    }
+
+    slideIndex++;
+    if (slideIndex > slides.length) {
+      slideIndex = 1;
+    }
+
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].classList.add("active");
+
+    slides[slideIndex - 1].scrollIntoView({ behavior: "smooth" });
+    setTimeout(showSlides, 2500);
+  }
+
+  showSlides();
+
+</script>
+
+</html>
