@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Foodie</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://kit.fontawesome.com/0a682b9dd5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <header>
+    <div class="flex-container">
+        <img class="logo" src="./assets/logoWhite.png" alt="Logo">
+        <div>
+            <div class="Hello_name" ><a href="https://tamilselvan6.github.io/profolio/">Hello, Tamilslevan &nbsp; &nbsp;  <i class="fa-solid fa-circle-user" style="color: #ffffff;"></i></a> </div>
+        </div>
+    </div>    
+  </header>
+
+  <div class="filter-container">
+    <label for="cuisine-filter">Filter by Cuisine:</label>
+    <select id="cuisine-filter">
+      <option value="all">All</option>
+      <option value="Vegetarian.">Vegetarian</option>
+      <option value="Non-Vegetarian">Non-Vegetarian</option>
+      <option value="SouthIndian">South Indian</option>
+      <option value="NorthIndian">North Indian</option>
+      <option value="Chettinad">Chettinad</option>
+      <option value="Tandoori">Tandoori</option>
+    </select>
+  </div>
+
+  <div id="restaurant-container" class="grid-container">
+    <!-- Dynamic content will be injected here -->
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    function openInfoPage() {
+      window.location.href = 'order_info.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('restaurant-container');
+      const filter = document.getElementById('cuisine-filter');
+
+      const displayRestaurants = (restaurants) => {
+        container.innerHTML = '';
+        restaurants.forEach(restaurant => {
+          const item = document.createElement('div');
+          item.classList.add('grid-item');
+
+          item.innerHTML = `
+            <img src="${restaurant.image}" alt="Image" onclick="openInfoPage()">
+            <b><p>${restaurant.name}</p></b>
+            <p>${restaurant.cuisine}</p>
+            <p><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;${restaurant.distance}</p>
+            <div class="line"></div>
+            <div class="review">${restaurant.reviews} Reviews</div>
+          `;
+
+          container.appendChild(item);
+        });
+      };
+
+      filter.addEventListener('change', (e) => {
+        const selectedCuisine = e.target.value;
+        if (selectedCuisine === 'all') {
+          displayRestaurants(restaurants);
+        } else {
+          const filteredRestaurants = restaurants.filter(restaurant => 
+            restaurant.cuisine.toLowerCase().includes(selectedCuisine.toLowerCase())
+          );
+          displayRestaurants(filteredRestaurants);
+        }
+      });
+
+      displayRestaurants(restaurants);
+    });
+  </script>
+</body>
+</html>
